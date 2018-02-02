@@ -59,7 +59,8 @@ export const getWorkbirthday = params =>{ return axios.get(url+'/workbirthday',{
 //工作提醒-个人查询
 export const getWorkbirthdayId = params =>{ return axios.get(url+'/workbirthdayid',{params:params})}
 
-
+//工作提醒 -审批提醒
+export const getBatch = params =>{ return axios.get(url+'/batch',{params:params})}
 
 
 
