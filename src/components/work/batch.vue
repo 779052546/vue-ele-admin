@@ -63,9 +63,9 @@
               <div><span v-if="scope.row.status==0">待审核</span><span v-if="scope.row.status==1">已通过</span><span v-if="scope.row.status==2">未通过</span></div>
             </template>
           </el-table-column>
-          <el-table-column label="操作" prop="entry" align="center" min-width="120" >
+          <el-table-column label="操作" align="center" min-width="120" >
             <template slot-scope="scope">
-              <div><el-button size="small" type="primary" @click="reset(scope.$index, scope.row)" :disabled="scope.row.status==1||scope.row.status==2"><span v-if="scope.row.status!=0">已审核</span><span v-if="scope.row.status==0">审核</span></el-button></div>
+              <div><el-button size="small" type="primary" @click="reset(scope.$index, scope.row)" :disabled="scope.row.status!=0"><span v-if="scope.row.status!=0">已审核</span><span v-if="scope.row.status==0">审核</span></el-button></div>
             </template>
           </el-table-column>
         </el-table>
@@ -80,24 +80,71 @@
           </el-pagination>
         </div>
       </div>
+
+
+      <!--修改-->
+      <el-dialog title="" v-model="editFormVisible" :close-on-click-modal="false" id="dialog">
+        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm content">
+          <el-form-item label="审批状态" prop="activeStatus">
+            <el-select v-model="ruleForm.activeStatus">
+              <el-option :value="1" label="通过"></el-option>
+              <el-option :value="2" label="拒绝"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="拒绝理由" prop="callback" v-if="ruleForm.activeStatus==2">
+            <el-input type="textarea" v-model.trim="ruleForm.callback" resize="none" :rows="4" :maxlength="100"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button @click.native="editFormVisible = false">取消</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+          </el-form-item>
+        </el-form>
+      </el-dialog>
+
     </el-row>
   </div>
 </template>
 
 <script>
   import {getCookie} from '../../cookie'
-  import {getBatch,getDepart} from '../api'
+  import {getBatch,getDepart,putBatchholiday} from '../api'
   export default {
     name: 'app',
     data() {
+      var validateStatus = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请选择审批状态'));
+        } else {
+          callback();
+        }
+      };
+      var validateCallback= (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请填写拒绝理由'));
+        } else {
+          callback();
+        }
+      };
       return {
         filters:{
           name:'',
           depart:'',
           status:'',
-          date:''
+          date:'',
         },
-
+        ruleForm:{
+          activeStatus:'',//选择审批状态
+          callback:''
+        },
+        rules: {
+          activeStatus: [
+            { validator: validateStatus, trigger: 'blur' }
+          ],
+          callback: [
+            { validator: validateCallback, trigger: 'blur' }
+          ],
+        },
+        editFormVisible:false,
 
         departList:[],   //部门列表
 
@@ -106,6 +153,8 @@
         page: 1,
         totalCount:0,   //总共多少条数据
         size:15,   //每页多少条数据
+
+        id:'',  //审核id
       };
     },
     created:function(){
@@ -158,6 +207,40 @@
         }
         return year+"-"+month;
       },
+      reset(can1,can2){
+        this.editFormVisible=true;
+        this.ruleForm.activeStatus='';
+        this.ruleForm.callback='';
+        this.id=can2.id;
+      },
+
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            if(this.ruleForm.activeStatus==1){
+              this.ruleForm.callback='';
+            }
+            let params={id:this.id,status:this.ruleForm.activeStatus,callback:this.ruleForm.callback};
+            putBatchholiday(params).then((res)=>{
+              if(res.data.code==10000){
+                this.$message.success('审批成功!');
+                this.editFormVisible=false;
+                this.getBatch();
+              }else{
+                this.$message.error('审批失败!');
+                this.editFormVisible=false;
+              }
+            })
+              .catch((err)=>{
+                this.editFormVisible=false;
+                this.$message.error('网络异常,请稍后再试!');
+              })
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
     }
   }
 </script>
@@ -165,4 +248,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   @import '../public.css';
+  .el-select,.el-input{  margin-bottom: 10px;  }
+  #dialog{  width: 1100px;  margin:0px auto;  }
+  .content{  width: 340px;  margin: 0 auto;  }
 </style>

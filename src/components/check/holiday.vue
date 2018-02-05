@@ -277,7 +277,6 @@
   .required:after{  content: '*';  position: absolute;  color: #ff4949;  margin-left: 10px;  right: -20px;  top: 0;}
   .requiredA:after{  right: 20px;  }
   .sizeA,.el-date-editor{  width: 200px;  }
-  .el-select .el-input{  width: 220px;  }
   .el-col>.el-button{  margin-bottom: 10px;  }
   .boxCol>div{  width: 320px;  float: left;  border: 1px solid #d9d9d9;  text-align: center;  position: relative;  overflow: hidden;  margin-right: 10px;  margin-bottom: 10px;}
   .boxCol>div>div{  width: 100px;  height: 50px;  line-height: 50px;  position: absolute;  right: -5px;  bottom: 20px;  transform:rotate(-45deg);  border: 1px solid #c9c9c9;  }

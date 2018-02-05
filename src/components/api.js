@@ -56,17 +56,20 @@ export const getAchievements = params =>{ return axios.get(url+'/achievements',{
 
 //工作提醒
 export const getWorkbirthday = params =>{ return axios.get(url+'/workbirthday',{params:params})}
+export const getWorkbirthday1 = params =>{ return axios.get(url+'/workbirthday1',{params:params})}
 //工作提醒-个人查询
 export const getWorkbirthdayId = params =>{ return axios.get(url+'/workbirthdayid',{params:params})}
-
 //工作提醒 -审批提醒
 export const getBatch = params =>{ return axios.get(url+'/batch',{params:params})}
+//工作提醒 -请假单批准
+export const putBatchholiday = params =>{ return axios.put(url+'/batchholiday',params)}
 
-
-
-
-
-
+//薪资管理
+//薪资管理 -查看
+export const getPrice = params =>{ return axios.get(url+'/price',{params:params})}
+export const getPriceId = params =>{ return axios.get(url+'/priceid',{params:params})}
+//薪资管理- 修改薪资
+export const putPrice = params =>{ return axios.put(url+'/price',params)}
 
 
 

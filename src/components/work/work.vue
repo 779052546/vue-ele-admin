@@ -1,7 +1,15 @@
 <template>
   <div class="app">
     <el-row class="header"><h3>合同到期提醒</h3></el-row>
-    <el-row class="section" style="height: 500px; padding-top: 100px">
+    <el-row class="section" style="height: 500px; padding-top: 100px" v-if="!power">
+      <el-carousel type="card" height="260px" indicator-position="none">
+        <el-carousel-item >
+          <h3>{{ workId.name }} </h3>
+          <div>到职日期{{ workId.entry | StampChan1}}</div>
+        </el-carousel-item>
+      </el-carousel>
+    </el-row>
+    <el-row class="section" style="height: 500px; padding-top: 100px" v-if="power">
       <el-carousel :interval="4000" type="card" height="260px" indicator-position="none">
         <el-carousel-item v-for="item in tableData" :key="item.id">
           <h3>{{ item.name }} </h3>
@@ -14,16 +22,26 @@
 
 <script>
   import {getCookie} from '../../cookie'
-  import {getWorkbirthday} from '../api'
+  import {getWorkbirthday,getWorkbirthdayId} from '../api'
   export default {
     name: 'app',
     data() {
       return {
         tableData:[],
+
+        workId:'',
+
+        power:false
       };
     },
     created:function(){
-      this.getWorkbirthday()
+      if(getCookie('power')==9999){
+        this.power=true;
+        this.getWorkbirthday()
+      }else{
+        this.power=false;
+        this.getWorkId();
+      }
     },
     mounted: function () {
 
@@ -32,6 +50,12 @@
       getWorkbirthday(){
         getWorkbirthday().then((res)=>{
           this.tableData=res.data.data;
+        })
+      },
+      getWorkId(){
+        let params={id:getCookie('account')}
+        getWorkbirthdayId(params).then((res)=>{
+          this.workId=res.data.data;
         })
       }
     }
