@@ -1,6 +1,11 @@
 <template>
   <div class="app">
     <el-row class="header">
+      <el-breadcrumb separator="/" class="breadcrumb-inner">
+        <el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
+          {{ item.name }}
+        </el-breadcrumb-item>
+      </el-breadcrumb>
       <h3>薪资查看</h3>
     </el-row>
     <el-row class="section">

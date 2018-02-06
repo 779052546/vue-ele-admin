@@ -18,8 +18,6 @@ export const postUserpass = params =>{ return axios.post(url+'/passreset',params
 export const deleteUser = params =>{ return axios.delete(url+'/deleteuser',{params:params})}
 //获取单人详细信息
 export const getUserPhone = params =>{ return axios.get(url+'/userphone',{params:params})}
-//获取单人人员权限信息
-export const getUserId = params =>{ return axios.get(url+'/userid',{params:params})}
 //添加人员信息
 export const postUserId = params =>{ return axios.post(url+'/user',params)}
 //修改人员信息
@@ -70,6 +68,19 @@ export const getPrice = params =>{ return axios.get(url+'/price',{params:params}
 export const getPriceId = params =>{ return axios.get(url+'/priceid',{params:params})}
 //薪资管理- 修改薪资
 export const putPrice = params =>{ return axios.put(url+'/price',params)}
+
+//岗位管理
+//部门管理 -查看
+export const getDepart1 = params =>{ return axios.get(url+'/depart')}
+//部门管理 -添加
+export const postDepart = params =>{ return axios.post(url+'/depart',params)}
+//岗位管理 -查看
+export const getPost1 = params =>{ return axios.get(url+'/post1',{params:params})}
+//岗位管理 -添加
+export const postPost1 = params =>{ return axios.post(url+'/post1',params)}
+//岗位管理 -全勤调整
+export const putPost1 = params =>{ return axios.put(url+'/post1',params)}
+
 
 
 

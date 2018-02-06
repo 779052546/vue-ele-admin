@@ -3,44 +3,31 @@
     <el-row class="header"><h3>岗位查看</h3></el-row>
     <el-row class="section">
       <el-row>
-        <el-col :xs="4" :sm="6" :md="6" :lg="4" style="min-width: 270px;">成员姓名<el-input v-model.trim="filters.name" style="width: 180px;" :maxlength="20"></el-input></el-col>
-        <el-col :xs="8" :sm="8" :md="8" :lg="8"> <el-button type="primary" @click="getRole">查询</el-button></el-col>
-      </el-row>
-      <el-row>
-        <el-table v-loading.body="loading" :data="tableData" border height="651">
-          <el-table-column label="成员姓名" prop="name" align="center" min-width="120">
+        <div> <el-button type="primary" @click="addAttendance">添加岗位</el-button></div>
+        <el-table v-loading.body="loading" :data="tableData" border max-height="651">
+          <el-table-column label="序列号" prop="id" align="center" min-width="120">
+            <template slot-scope="scope">
+              <div>{{ scope.row.id}}</div>
+            </template>
+          </el-table-column>
+          <el-table-column label="岗位" prop="pname" align="center" min-width="120">
+            <template slot-scope="scope">
+              <div>{{ scope.row.pname}}</div>
+            </template>
+          </el-table-column>
+          <el-table-column label="全勤奖" prop="attendance" align="center" min-width="120">
+            <template slot-scope="scope">
+              <div>{{ scope.row.attendance}}</div>
+            </template>
+          </el-table-column>
+          <el-table-column label="隶属部门" prop="name" align="center" min-width="120" >
             <template slot-scope="scope">
               <div>{{ scope.row.name}}</div>
             </template>
           </el-table-column>
-          <el-table-column label="手机号码" prop="phone" align="center" min-width="120" >
+          <el-table-column label="操作" align="center" width="140px">
             <template slot-scope="scope">
-              <div>{{ scope.row.phone}}</div>
-            </template>
-          </el-table-column>
-          <el-table-column label="状态" prop="status" align="center" min-width="120">
-            <template slot-scope="scope">
-              <div><span v-if="scope.row.status==0">无效</span><span v-if="scope.row.status==1">有效</span></div>
-            </template>
-          </el-table-column>
-          <el-table-column label="角色" prop="role" align="center" min-width="120">
-            <template slot-scope="scope">
-              <div><span v-for="(item,index) in scope.row.role">{{item.name}}<span v-if="index<scope.row.role.length-1?true:false">,</span></span></div>
-            </template>
-          </el-table-column>
-          <el-table-column label="创建时间" sortable prop="createTime" align="center" width="180">
-            <template slot-scope="scope">
-              <div>{{ scope.row.createTime}}</div>
-            </template>
-          </el-table-column>
-          <el-table-column label="更新时间" sortable prop="updateTime" align="center" width="180">
-            <template slot-scope="scope">
-              <div>{{ scope.row.updateTime}}</div>
-            </template>
-          </el-table-column>
-          <el-table-column label="操作" align="center" width="110" fixed="right">
-            <template slot-scope="scope">
-              <div><el-button type="primary" size="small" @click="skipBtn(scope.$index, scope.row)">详情</el-button></div>
+              <div><el-button size="small" type="primary" @click="resetAttendance(scope.$index, scope.row)">调整全勤奖</el-button></div>
             </template>
           </el-table-column>
         </el-table>
@@ -56,56 +43,227 @@
         </div>
       </div>
     </el-row>
+
+    <!--添加-->
+    <el-dialog title="" v-model="editFormVisible" :close-on-click-modal="false" class="dialog">
+      <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm content">
+        <el-form-item label="岗位名称" prop="name">
+          <el-input type="text" v-model.trim="ruleForm.name" auto-complete="off" class="required" :maxlength="20"></el-input>
+        </el-form-item>
+        <el-form-item label="所属部门" prop="dtid">
+          <el-select v-model.trim="ruleForm.dtid" class="required">
+            <el-option v-for="item in departList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="基础工资" prop="basepay">
+          <el-input type="text" v-model.trim="ruleForm.basepay" auto-complete="off" :maxlength="8" class="required"></el-input>
+        </el-form-item>
+        <el-form-item label="岗位补贴" prop="postbt">
+          <el-input type="text" v-model.trim="ruleForm.postbt" auto-complete="off" :maxlength="5" class="required"></el-input>
+        </el-form-item>
+        <el-form-item label="全勤奖" prop="attendance">
+          <el-input type="text" v-model.trim="ruleForm.attendance" auto-complete="off" :maxlength="5" class="required"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm('ruleForm')" :loading="loading" @dblclick="false">提交</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+
+    <!--调整-->
+    <el-dialog title="" v-model="editFormVisible1" :close-on-click-modal="false" class="dialog">
+      <div class="content">
+        全勤奖&nbsp;<el-input type="text" v-model.trim="ruleForm.attendance" auto-complete="off" :maxlength="5"></el-input>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click.native="editFormVisible1 = false">取消</el-button>
+        <el-button type="primary" @click="submitBtn">提交</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+  import {getCookie} from '../../cookie'
+  import {getPost1,getDepart,postPost1,putPost1} from '../api'
   export default {
     name: 'app',
     data () {
+      var reg= /^[0-9]+$/;
+      var validateAttendance = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入全勤奖'));
+        } else if(!reg.test(value)){
+          callback(new Error('请输入数字'));
+        } else {
+          callback();
+        }
+      };
+      var validatePostbt = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入岗位补贴'));
+        } else if(!reg.test(value)){
+          callback(new Error('请输入数字'));
+        } else {
+          callback();
+        }
+      };
+      var validateBasepay = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入基础工资'));
+        } else if(!reg.test(value)){
+          callback(new Error('请输入数字'));
+        } else {
+          callback();
+        }
+      };
+      var validateDtid = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请选择所属部门'));
+        } else {
+          callback();
+        }
+      };
+      var validateName = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入岗位名称'));
+        } else {
+          callback();
+        }
+      };
       return {
-        filters:{
-          name:'',  //成员姓名
-          order:'',   //排序字段名
-          sort:'',   //排序规则（asc：升序，desc：降序）
-        },
         tableData:null,    //数组
         page: 1,
         totalCount:0,   //总共多少条数据
-        size:30,   //每页多少条数据
+        size:15,   //每页多少条数据
         loading:false,
+        editFormVisible:false,
+        editFormVisible1:false,
+        ruleForm:{
+          name:'',
+          dtid:'',
+          basepay:'',
+          postbt:'',
+          attendance:''
+        },
+        rules: {
+          attendance: [
+            { validator: validateAttendance, trigger: 'blur' }
+          ],
+          postbt: [
+            { validator: validatePostbt, trigger: 'blur' }
+          ],
+          basepay: [
+            { validator: validateBasepay, trigger: 'blur' }
+          ],
+          dtid: [
+            { validator: validateDtid, trigger: 'blur' }
+          ],
+          name: [
+            { validator: validateName, trigger: 'blur' }
+          ],
+        },
+        departList:[],  //部门列表
+        id:'',
       }
     },
     created:function(){
-
+      getDepart().then((res)=>{
+        if(res.data.code==10000){
+          this.departList=res.data.data;
+        }
+      })
     },
     mounted: function () {
-
+      this.getPost1();
     },
     methods: {
       handleCurrentChange(val) {
         this.page = val;
-        this.getRole();
+        this.getPost1();
       },
-      skipBtn:function(can1,can2){
-//        this.$router.push({path:'/Home/Rolesets',query:{id:can2.id}})
-      },
-      skipBtn1:function(){
-
-      },
-      getRole(){
+      getPost1(){
         this.loading=true;
-        let params={page:this.page,order:this.filters.order,sort:this.filters.sort,name:this.filters.name};
-        getRoleList(params).then((res)=>{
-          if(res.data.code==10000){
-            this.loading=false;
-          }
+        let params={page:this.page};
+        getPost1(params).then((res)=>{
+          this.loading=false;
+          this.tableData=res.data.data;
+          this.totalCount=res.data.total;
         })
           .catch((err)=>{
             this.loading=false;
             this.$message.error('网络异常,请稍后重试!');
           })
       },
+      //调整全勤
+      resetAttendance(can1,can2){
+        this.id=can2.id;
+        this.editFormVisible1=true;
+        this.ruleForm.attendance=can2.attendance;
+      },
+      //调整全勤
+      submitBtn(){
+        let reg = /^[0-9]+$/;
+        if(this.ruleForm.attendance==''){
+          this.$message.error('请输入全勤奖!');
+          return false;
+        }
+        if(!reg.test(this.ruleForm.attendance)){
+          this.$message.error('请输入数字!');
+          return false;
+        }
+        let params={id:this.id,attendance:this.ruleForm.attendance};
+        putPost1(params).then((res)=>{
+          if(res.data.code==10000){
+            this.$message.success('调整成功!');
+            this.editFormVisible1=false;
+            this.getPost1();
+          }else{
+            this.editFormVisible1=false;
+            this.$message.error('系统异常,请稍后重试!');
+          }
+        })
+          .catch((err)=>{
+            this.editFormVisible1=false;
+            this.$message.error('网络异常,请稍后重试!');
+          })
+      },
+      //添加岗位
+      addAttendance(){
+        this.editFormVisible=true;
+        this.ruleForm={
+          name:'',
+          dtid:'',
+          basepay:'',
+          postbt:'',
+          attendance:''
+        }
+      },
+      //添加岗位
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            let params = {name:this.ruleForm.name,dtid:this.ruleForm.dtid,basepay:this.ruleForm.basepay,postbt:this.ruleForm.postbt,attendance:this.ruleForm.attendance};
+            postPost1(params).then((res)=>{
+              if(res.data.code==10000){
+                this.$message.success('添加成功!');
+                this.editFormVisible=false;
+                this.getPost1();
+              }else{
+                this.$message.error(res.data.data);
+              }
+            })
+              .catch((err)=>{
+                this.editFormVisible=false;
+                this.$message.error('网络异常,请稍后重试!');
+              })
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
+
     }
   }
 </script>
@@ -113,4 +271,6 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   @import '../public.css';
+  .dialog{  width: 1100px;  margin:0px auto;  }
+  .content{  width: 340px;  margin: 0 auto;  margin-left: 130px; }
 </style>

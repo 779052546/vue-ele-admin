@@ -1,6 +1,12 @@
 <template>
   <div class="app">
-    <el-row class="header"><h3>生日提醒</h3></el-row>
+    <el-row class="header">
+      <el-breadcrumb separator="/" class="breadcrumb-inner">
+        <el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
+          {{ item.name }}
+        </el-breadcrumb-item>
+      </el-breadcrumb>
+      <h3>生日提醒</h3></el-row>
     <el-row class="section" v-if="!power">
       <el-card :body-style="{ padding: '0px' }">
         <img src="/static/img/timg.jpg" class="image">

@@ -1,13 +1,19 @@
 <template>
   <div class="app">
-    <el-row class="header"><h3>请假单</h3></el-row>
+    <el-row class="header">
+      <el-breadcrumb separator="/" class="breadcrumb-inner">
+        <el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
+          {{ item.name }}
+        </el-breadcrumb-item>
+      </el-breadcrumb>
+      <h3>请假单</h3></el-row>
     <el-row class="section">
      <el-col>
        <el-button @click="openDialog">我要请假</el-button>
      </el-col>
       <el-col class="boxCol">
         <div style="padding: 14px;" v-for="item in holidayList">
-          <el-button v-if="item.status==1 || item.status==2" @click="deleteButton(item.id)">删除</el-button>
+          <el-button v-if="item.status==2" @click="deleteButton(item.id)">删除</el-button>
           <p>{{item.name}}</p>
           <p>{{item.phone}}</p>
           <p>请假类型:{{item.tname}}</p>

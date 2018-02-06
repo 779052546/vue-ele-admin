@@ -1,6 +1,12 @@
 <template>
   <div class="app">
-    <el-row class="header"><h3>打卡</h3></el-row>
+    <el-row class="header">
+      <el-breadcrumb separator="/" class="breadcrumb-inner">
+        <el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
+          {{ item.name }}
+        </el-breadcrumb-item>
+      </el-breadcrumb>
+      <h3>打卡</h3></el-row>
     <el-row class="section">
         <p>每天八点半之前上班打卡</p>
         <el-button type="primary" :loading="loading" @click="submitForm" :disabled="isTrue"><span v-if="!isTrue">打卡</span><span v-if="isTrue">今日已打卡{{isTime}}</span></el-button>

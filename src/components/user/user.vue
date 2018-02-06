@@ -172,21 +172,21 @@
       };
       var validateAttendance= (rule, value, callback) => {
         if (value === '') {
-          callback(new Error('请填写全勤奖'));
+          callback(new Error('请输入全勤奖'));
         } else {
           callback();
         }
       };
       var validatePostbt= (rule, value, callback) => {
         if (value === '') {
-          callback(new Error('请填写岗位补贴'));
+          callback(new Error('请输入岗位补贴'));
         } else {
           callback();
         }
       };
       var validateBasepay= (rule, value, callback) => {
         if (value === '') {
-          callback(new Error('请填写基础工资'));
+          callback(new Error('请输入基础工资'));
         } else {
           callback();
         }

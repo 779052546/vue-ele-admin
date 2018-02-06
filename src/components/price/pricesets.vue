@@ -1,6 +1,12 @@
 <template>
   <div class="app">
-    <el-row class="header"><h3>薪资调整</h3></el-row>
+    <el-row class="header">
+      <el-breadcrumb separator="/" class="breadcrumb-inner">
+        <el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
+          {{ item.name }}
+        </el-breadcrumb-item>
+      </el-breadcrumb>
+      <h3>薪资调整</h3></el-row>
     <el-row class="section" v-if="!power">
 
     </el-row>
@@ -26,7 +32,7 @@
               <div>{{ scope.row.price}}</div>
             </template>
           </el-table-column>
-          <el-table-column label="角色" prop="attendance" align="center" min-width="120">
+          <el-table-column label="全勤奖" prop="attendance" align="center" min-width="120">
             <template slot-scope="scope">
               <div>{{ scope.row.attendance}}</div>
             </template>

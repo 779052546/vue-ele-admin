@@ -1,6 +1,12 @@
 <template>
   <div class="app">
-    <el-row class="header"><h3>考勤表</h3></el-row>
+    <el-row class="header">
+      <el-breadcrumb separator="/" class="breadcrumb-inner">
+        <el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
+          {{ item.name }}
+        </el-breadcrumb-item>
+      </el-breadcrumb>
+      <h3>考勤表</h3></el-row>
     <el-row class="section">
       <el-col v-if="power">月份<el-date-picker v-model.trim="date" type="month" placeholder="选择月份" :picker-options="pickerOptions" format="yyyy-MM" :editable="false" @change="valueFormat"></el-date-picker> <el-button type="primary" @click="drawLine">查询</el-button></el-col>
       <el-col class="elcol">

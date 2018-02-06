@@ -1,6 +1,12 @@
 <template>
   <div class="app">
-    <el-row class="header"><h3>合同到期提醒</h3></el-row>
+    <el-row class="header">
+      <el-breadcrumb separator="/" class="breadcrumb-inner">
+        <el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
+          {{ item.name }}
+        </el-breadcrumb-item>
+      </el-breadcrumb>
+      <h3>合同到期提醒</h3></el-row>
     <el-row class="section" style="height: 500px; padding-top: 100px" v-if="!power">
       <el-carousel type="card" height="260px" indicator-position="none">
         <el-carousel-item >

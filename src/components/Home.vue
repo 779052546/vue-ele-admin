@@ -20,7 +20,7 @@
             <span slot="title">人员档案</span>
           </template>
           <el-menu-item index="/Home/User" style="padding-left: 53px;" class="skipbtn">信息查看</el-menu-item>
-          <el-menu-item index="/Home/Personal" style="padding-left: 53px;" class="skipbtn" @click="skipBtn">单人信息管理</el-menu-item>
+          <el-menu-item index="/Home/Personal" style="padding-left: 53px;" class="skipbtn" @click="skipBtn">个人信息管理</el-menu-item>
           <el-menu-item index="/Home/Password" style="padding-left: 53px;" class="skipbtn">登录密码修改</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
@@ -55,8 +55,8 @@
             <i class="el-icon-setting"></i>
             <span slot="title">薪资管理</span>
           </template>
-          <el-menu-item index="/Home/Price" style="padding-left: 53px;" class="skipbtn">薪资查看</el-menu-item>
-          <el-menu-item index="/Home/Pricesets" style="padding-left: 53px;" class="skipbtn">薪资调整</el-menu-item>
+          <el-menu-item index="/Home/Price" style="padding-left: 53px;" class="skipbtn">个人薪资</el-menu-item>
+          <el-menu-item index="/Home/Pricesets" style="padding-left: 53px;" class="skipbtn" v-if="power">薪资调整</el-menu-item>
         </el-submenu>
         <el-submenu index="6">
           <template slot="title">
@@ -65,8 +65,6 @@
           </template>
           <el-menu-item index="/Home/Depart" style="padding-left: 53px;" class="skipbtn">部门查看</el-menu-item>
           <el-menu-item index="/Home/Post" style="padding-left: 53px;" class="skipbtn">岗位查看</el-menu-item>
-          <el-menu-item index="/Home/Departsets" style="padding-left: 53px;" class="skipbtn">部门增改</el-menu-item>
-          <el-menu-item index="/Home/Postsets" style="padding-left: 53px;" class="skipbtn">岗位增改</el-menu-item>
         </el-submenu>
         <el-submenu index="7">
           <template slot="title">
@@ -85,7 +83,7 @@
 
 <script>
 import {setCookie,getCookie,delCookie} from '../cookie'
-import {getUserId,putStatus} from './api'
+import {putStatus} from './api'
 export default {
   name: 'app',
   data () {
@@ -97,37 +95,30 @@ export default {
   },
   created:function(){
     if(getCookie('account')){
-      let params = {id : getCookie('account')} ;
-      getUserId(params).then((res)=>{
-          if(res.data.code==10000){
-            setCookie('power',res.data.data.power);
-            setCookie('name',res.data.data.name);
-            this.name=res.data.data.name;
-            let params = {id : getCookie('account'),status:1} ;
-            putStatus(params).then((res)=>{})
-          }else if(res.data.code==9999){
-            this.$message.error(res.data.data);
-          }
-      })
+      if(getCookie('power')==9999){
+        this.power=true;
+      }else{
+        this.power=false;
+      }
+      this.name=getCookie('name')
     }
   },
   mounted:function(){
     this.init();
   },
   methods: {
-      init:function(){
-        if(getCookie('inde')){
-          $('.skipbtn').eq(getCookie('inde')).css({'color':'#fff','background-color':'#C2AA5D'})
-        }
-
-        $('.skipbtn').each(function(i){
-          $(this).on('click',function(){
-            $('.skipbtn').css({'color':'#48576A','background-color':'#D9DEEA'});
-            $(this).css({'color':'#fff','background-color':'#C2AA5D'});
-            setCookie('inde',i);
-          })
+    init:function(){
+      if(getCookie('inde')){
+        $('.skipbtn').eq(getCookie('inde')).css({'color':'#fff','background-color':'#C2AA5D'})
+      }
+      $('.skipbtn').each(function(i){
+        $(this).on('click',function(){
+          $('.skipbtn').css({'color':'#48576A','background-color':'#D9DEEA'});
+          $(this).css({'color':'#fff','background-color':'#C2AA5D'});
+          setCookie('inde',i);
         })
-      },
+      })
+    },
     logout:function(){
       let params = {id : getCookie('account'),status:0} ;
       putStatus(params).then((res)=>{})
@@ -138,7 +129,7 @@ export default {
     },
     skipBtn:function(){
       this.$router.push({path:'/Home/Personal',query:{id:getCookie('account')}});
-    }
+    },
   }
 }
 </script>

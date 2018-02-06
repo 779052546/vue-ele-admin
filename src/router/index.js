@@ -17,9 +17,7 @@ import Batch from '@/components/work/batch.vue'
 import Price from '@/components/price/price.vue'
 import Pricesets from '@/components/price/pricesets.vue'
 import Depart from '@/components/post/department.vue'
-import Departsets from '@/components/post/departmentsets.vue'
 import Post from '@/components/post/post.vue'
-import Postsets from '@/components/post/postsets.vue'
 import Room from '@/components/talk/room.vue'
 import {getCookie} from '../cookie'
 
@@ -37,7 +35,7 @@ const routes =[
     name:'人员档案',
     children:[
       {path:'User',component:User,name:'信息查看'},
-      {path:'Personal',component:Personal,name:'单人信息管理'},
+      {path:'Personal',component:Personal,name:'个人信息管理'},
       {path:'Password',component:Password,name:'密码修改'},
     ]
   },
@@ -76,7 +74,7 @@ const routes =[
     component: Home,
     name:'薪资管理',
     children:[
-      {path:'Price',component:Price,name:'薪资查看'},
+      {path:'Price',component:Price,name:'个人薪资'},
       {path:'Pricesets',component:Pricesets,name:'薪资调整'},
     ]
   },
@@ -87,8 +85,6 @@ const routes =[
     children:[
       {path:'Depart',component:Depart,name:'部门查看'},
       {path:'Post',component:Post,name:'岗位查看'},
-      {path:'Departsets',component:Departsets,name:'部门增改'},
-      {path:'Postsets',component:Postsets,name:'岗位增改'},
     ]
   },
   {
