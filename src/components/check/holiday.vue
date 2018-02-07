@@ -11,9 +11,12 @@
      <el-col>
        <el-button @click="openDialog">我要请假</el-button>
      </el-col>
-      <el-col class="boxCol">
-        <div style="padding: 14px;" v-for="item in holidayList">
-          <el-button v-if="item.status==2" @click="deleteButton(item.id)">删除</el-button>
+      <el-card class="box-card" v-for="item in holidayList" :key="item.id">
+        <div slot="header" class="clearfix">
+          <span>请假单</span>
+          <el-button style="float: right; padding: 3px 0" type="text" v-if="item.status==2" @click="deleteButton(item.id)">删除</el-button>
+        </div>
+        <div class="text item">
           <p>{{item.name}}</p>
           <p>{{item.phone}}</p>
           <p>请假类型:{{item.tname}}</p>
@@ -21,17 +24,15 @@
           <span>{{item.timebegin |StampChanYear}}</span>
           <p>结束时间:</p>
           <span>{{item.timeover | StampChanYear}}</span>
-          <p>请假理由:</p>
-          <span>{{item.reason}}</span>
-          <p v-if="item.status==2">驳回理由:</p>
-          <span v-if="item.status==2">{{item.callback}}</span>
-          <div :class="{green:item.status==1,red:item.status==2}">
+          <p>请假理由:{{item.reason}}</p>
+          <p v-if="item.status==2">驳回理由:{{item.callback}}</p>
+          <div :class="{green:item.status==1,red:item.status==2,rotate:true}">
             <span v-if="item.status==0">待审批</span>
             <span v-if="item.status==1">已通过</span>
             <span v-if="item.status==2">未通过</span>
           </div>
         </div>
-      </el-col>
+      </el-card>
     </el-row>
 
     <el-dialog title="请假单" id="dialog" :visible.sync="dialogFormVisible">
@@ -284,9 +285,8 @@
   .requiredA:after{  right: 20px;  }
   .sizeA,.el-date-editor{  width: 200px;  }
   .el-col>.el-button{  margin-bottom: 10px;  }
-  .boxCol>div{  width: 320px;  float: left;  border: 1px solid #d9d9d9;  text-align: center;  position: relative;  overflow: hidden;  margin-right: 10px;  margin-bottom: 10px;}
-  .boxCol>div>div{  width: 100px;  height: 50px;  line-height: 50px;  position: absolute;  right: -5px;  bottom: 20px;  transform:rotate(-45deg);  border: 1px solid #c9c9c9;  }
-  .boxCol .green{  border: 1px solid green;  }
-  .boxCol .red{  border: 1px solid red;  }
-  .boxCol>div>.el-button{  position: absolute;  right: 10px;  }
+  .box-card{  width: 320px;  height: 450px;float: left;  text-align: center;  position: relative;  overflow: hidden;  margin-right: 10px;  margin-bottom: 10px;}
+  .box-card .rotate{  width: 100px;  height: 50px;  line-height: 50px;  position: absolute;  right: -5px;  bottom: 20px;  transform:rotate(-45deg);  border: 1px solid #c9c9c9;  }
+  .box-card .green{  border: 1px solid green;  }
+  .box-card .red{  border: 1px solid red;  }
 </style>

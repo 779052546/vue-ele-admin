@@ -1,37 +1,37 @@
 <template>
   <div class="app">
-    <el-row class="header"><h3>岗位查看</h3></el-row>
+    <el-row class="header">
+      <el-breadcrumb separator="/" class="breadcrumb-inner">
+        <el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
+          {{ item.name }}
+        </el-breadcrumb-item>
+      </el-breadcrumb>
+      <h3>岗位查看</h3></el-row>
     <el-row class="section">
-      <el-row>
-        <div> <el-button type="primary" @click="addAttendance">添加岗位</el-button></div>
-        <el-table v-loading.body="loading" :data="tableData" border max-height="651">
-          <el-table-column label="序列号" prop="id" align="center" min-width="120">
-            <template slot-scope="scope">
-              <div>{{ scope.row.id}}</div>
-            </template>
-          </el-table-column>
-          <el-table-column label="岗位" prop="pname" align="center" min-width="120">
-            <template slot-scope="scope">
-              <div>{{ scope.row.pname}}</div>
-            </template>
-          </el-table-column>
-          <el-table-column label="全勤奖" prop="attendance" align="center" min-width="120">
-            <template slot-scope="scope">
-              <div>{{ scope.row.attendance}}</div>
-            </template>
-          </el-table-column>
-          <el-table-column label="隶属部门" prop="name" align="center" min-width="120" >
-            <template slot-scope="scope">
-              <div>{{ scope.row.name}}</div>
-            </template>
-          </el-table-column>
-          <el-table-column label="操作" align="center" width="140px">
-            <template slot-scope="scope">
-              <div><el-button size="small" type="primary" @click="resetAttendance(scope.$index, scope.row)">调整全勤奖</el-button></div>
-            </template>
-          </el-table-column>
-        </el-table>
-      </el-row>
+      <div> <el-button type="primary" @click="addAttendance">添加岗位</el-button></div>
+      <el-table v-loading.body="loading" :data="tableData" border max-height="651">
+        <el-table-column label="序列号" type="index" align="center" width="120"></el-table-column>
+        <el-table-column label="岗位" prop="pname" align="center" min-width="120">
+          <template slot-scope="scope">
+            <div>{{ scope.row.pname}}</div>
+          </template>
+        </el-table-column>
+        <el-table-column label="全勤奖" prop="attendance" align="center" min-width="120">
+          <template slot-scope="scope">
+            <div>{{ scope.row.attendance}}</div>
+          </template>
+        </el-table-column>
+        <el-table-column label="隶属部门" prop="name" align="center" min-width="120" >
+          <template slot-scope="scope">
+            <div>{{ scope.row.name}}</div>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" align="center" width="140px">
+          <template slot-scope="scope">
+            <div><el-button size="small" type="primary" @click="resetAttendance(scope.$index, scope.row)">调整全勤奖</el-button></div>
+          </template>
+        </el-table-column>
+      </el-table>
       <div style="overflow: hidden">
         <div class="block">
           <el-pagination @current-change="handleCurrentChange"

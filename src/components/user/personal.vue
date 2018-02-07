@@ -5,7 +5,7 @@
         {{ item.name }}
       </el-breadcrumb-item>
     </el-breadcrumb>
-      <h3>{{title}}系统账号</h3>
+      <h3>个人信息管理</h3>
     </el-row>
     <el-row class="section">
       <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
@@ -33,11 +33,6 @@
              <el-option v-for="item in departList" :key="item.id" :label="item.name" :value="item.id"></el-option>
            </el-select>
          </el-form-item>
-         <!--<el-form-item label="岗位" prop="post">-->
-           <!--<el-select v-model="ruleForm.post" placeholder="请选择" class="required" :disabled="true">-->
-             <!--<el-option v-for="item in postList" :key="item.id" :label="item.name" :value="item.id"></el-option>-->
-           <!--</el-select>-->
-         <!--</el-form-item>-->
          <el-form-item label="籍贯" prop="jiguan">
            <el-input type="text" v-model.trim="ruleForm.jiguan" auto-complete="off" :maxlength="16"></el-input>
          </el-form-item>
@@ -48,8 +43,7 @@
        <div class="leftBox">
          <el-form-item label="学历" prop="education">
            <el-select v-model="ruleForm.education" placeholder="请选择">
-             <el-option :value="1" label="男"></el-option>
-             <el-option :value="0" label="女"></el-option>
+             <el-option v-for="item in educationList" :key="item.id" :label="item.name" :value="item.id"></el-option>
            </el-select>
          </el-form-item>
          <el-form-item label="QQ" prop="qq">
@@ -57,11 +51,6 @@
          </el-form-item>
          <el-form-item label="E-mail" prop="email">
            <el-input type="text" v-model.trim="ruleForm.email" auto-complete="off" :maxlength="16"></el-input>
-         </el-form-item>
-         <el-form-item label="角色" prop="power">
-           <el-select v-model="ruleForm.power" placeholder="请选择" class="required" :disabled="isTrue1">
-             <el-option v-for="item in roleList" :key="item.id" :label="item.name" :value="item.id"></el-option>
-           </el-select>
          </el-form-item>
          <el-form-item label="薪资" prop="price">
            <el-input type="text" v-model.trim="ruleForm.price" auto-complete="off" class="required" :maxlength="16" :disabled="true"></el-input>
@@ -90,18 +79,11 @@
 </template>
 
 <script>
-  import {getDepart,getPower,getPost,getPostId,getUserPhone,putUserId} from '../api'
+  import {getDepart,getPower,getPost,getPostId,getUserPhone,putUserId,getEducation} from '../api'
   import {getCookie} from '../../cookie'
   export default {
     name: 'app',
     data() {
-      var validateRoles = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('请选择角色'));
-        } else {
-          callback();
-        }
-      };
       var validateEntry= (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请选择入职日期'));
@@ -208,9 +190,6 @@
           sex: [
             { validator: validateSex, trigger: 'blur' }
           ],
-          power: [
-            { validator: validateRoles, trigger: 'blur' }
-          ],
           department: [
             { validator: validateDepartment, trigger: 'blur' }
           ],
@@ -233,11 +212,10 @@
             { validator: validateEntry, trigger: 'blur' }
           ],
         },
-        title:'新增',
         loading:false,
         roleList:[],
-        departList:[],  //部门
-        postList:[],    //岗位
+        departList:[],  //部门列表
+        educationList:[], //学历列表
         isTrue:false,   //判断入职日期
         isTrue1:false,   //判断薪资是否能更改
         id:''
@@ -260,9 +238,13 @@
           this.roleList=res.data.data;
         }
       })
+      getEducation().then((res)=>{
+        if(res.data.code==10000){
+          this.educationList=res.data.data;
+        }
+      })
 
       if (this.$route.query.id){
-        this.title='个人';
         this.isTrue=true;
         this.isTrue1=true;
         if(getCookie('power')==9999){
@@ -280,7 +262,7 @@
             this.ruleForm.post=res.data.data.post;
             this.ruleForm.jiguan=res.data.data.jiguan;
             this.ruleForm.address=res.data.data.address;
-            this.ruleForm.education=res.data.data.education;
+            this.ruleForm.education=Number(res.data.data.education);
             this.ruleForm.qq=res.data.data.qq;
             this.ruleForm.email=res.data.data.email;
             this.ruleForm.power=Number(res.data.data.power);

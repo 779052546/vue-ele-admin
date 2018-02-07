@@ -56,6 +56,11 @@
               <div>{{ scope.row.textarea}}</div>
             </template>
           </el-table-column>
+          <el-table-column label="住址" prop="address" align="center" min-width="160" >
+            <template slot-scope="scope">
+              <div>{{ scope.row.address}}</div>
+            </template>
+          </el-table-column>
           <el-table-column label="生日" prop="birthday" align="center" min-width="120" >
             <template slot-scope="scope">
               <div>{{ scope.row.birthday | StampChan}}</div>
@@ -71,7 +76,7 @@
               <div>{{ scope.row.entry | StampChan}}</div>
             </template>
           </el-table-column>
-          <el-table-column label="操作" align="center" width="140px">
+          <el-table-column label="操作" align="center" width="140px" v-if="isTrue">
             <template slot-scope="scope">
               <div><el-button size="small" type="primary" @click="reset(scope.$index, scope.row)">重置密码</el-button><el-button size="small" type="danger" @click="deLete(scope.$index, scope.row)">删除此人</el-button></div>
             </template>
@@ -309,17 +314,15 @@
       }
     },
     created:function(){
-
+      if(getCookie('power')==9999){
+        this.isTrue=true;
+      }else{
+        this.isTrue=false;
+      }
 
       getPower().then((res)=>{
         if(res.data.code==10000){
           this.roleList=res.data.data;
-
-          if(getCookie('power')==9999){
-            this.isTrue=true;
-          }else{
-            this.isTrue=false;
-          }
         }
       })
 

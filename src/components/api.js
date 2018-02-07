@@ -81,8 +81,16 @@ export const postPost1 = params =>{ return axios.post(url+'/post1',params)}
 //岗位管理 -全勤调整
 export const putPost1 = params =>{ return axios.put(url+'/post1',params)}
 
-
-
+//信息交流
+//信息交流 -查看
+export const getMessage = params =>{ return axios.get(url+'/message',{params:params})}
+export const getMessageUser = params =>{ return axios.get(url+'/messageuser',{params:params})}
+//信息交流 -添加
+export const postMessage = params =>{ return axios.post(url+'/message',params)}
+//信息交流 -修改状态
+export const putMessage = params =>{ return axios.put(url+'/message',params)}
+//信息交流 -删除留言
+export const deleteMessage = params =>{ return axios.delete(url+'/message',{params:params})}
 
 
 //获取部门信息
@@ -97,3 +105,5 @@ export const getPostId = params =>{ return axios.get(url+'/postid',{params:param
 export const getPower = params =>{ return axios.get(url+'/power',{params:params})}
 //左联查询查询用户哪个部门 用于请假
 export const getUserDepat = params =>{ return axios.get(url+'/userdepartment',{params:params})}
+//获取学历信息
+export const getEducation = params =>{ return axios.get(url+'/education',{params:params})}
