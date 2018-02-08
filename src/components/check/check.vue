@@ -26,7 +26,7 @@
         time:'',
         date:'',   //打卡时间日期
         status:'',   //上班状态 1为正常打卡 0为迟到打卡
-        isTrue:false,   //是否已打卡
+        isTrue:true,   //是否已打卡
         isTime:'',    //若已打卡,打卡时间
       };
     },

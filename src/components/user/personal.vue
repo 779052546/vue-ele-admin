@@ -50,19 +50,19 @@
            <el-input type="text" v-model.trim="ruleForm.qq" auto-complete="off" :maxlength="16"></el-input>
          </el-form-item>
          <el-form-item label="E-mail" prop="email">
-           <el-input type="text" v-model.trim="ruleForm.email" auto-complete="off" :maxlength="16"></el-input>
+           <el-input type="text" v-model.trim="ruleForm.email" auto-complete="off" :maxlength="50"></el-input>
          </el-form-item>
          <el-form-item label="薪资" prop="price">
            <el-input type="text" v-model.trim="ruleForm.price" auto-complete="off" class="required" :maxlength="16" :disabled="true"></el-input>
          </el-form-item>
          <el-form-item label="基础工资" prop="basepay">
-           <el-input type="text" v-model.trim="ruleForm.basepay" auto-complete="off" class="required" :maxlength="16" @change="price" :disabled="isTrue1"></el-input>
+           <el-input type="text" v-model.trim="ruleForm.basepay" auto-complete="off" class="required" :maxlength="16" @change="price" :disabled="true"></el-input>
          </el-form-item>
          <el-form-item label="岗位补贴" prop="postbt">
-           <el-input type="text" v-model.trim="ruleForm.postbt" auto-complete="off" class="required" :maxlength="16" @change="price" :disabled="isTrue1"></el-input>
+           <el-input type="text" v-model.trim="ruleForm.postbt" auto-complete="off" class="required" :maxlength="16" @change="price" :disabled="true"></el-input>
          </el-form-item>
          <el-form-item label="全勤奖" prop="attendance">
-           <el-input type="text" v-model.trim="ruleForm.attendance" auto-complete="off" class="required" :maxlength="16" @change="price" :disabled="isTrue1"></el-input>
+           <el-input type="text" v-model.trim="ruleForm.attendance" auto-complete="off" class="required" :maxlength="16" @change="price" :disabled="true"></el-input>
          </el-form-item>
          <el-form-item label="入职日期" prop="entry">
            <el-date-picker type="date" v-model.trim="ruleForm.entry" :editable="false" auto-complete="off" class="required" :maxlength="16" format="yyyy-MM-dd" @change="getStime" :disabled="isTrue"></el-date-picker>
@@ -217,12 +217,10 @@
         departList:[],  //部门列表
         educationList:[], //学历列表
         isTrue:false,   //判断入职日期
-        isTrue1:false,   //判断薪资是否能更改
         id:''
       };
     },
     created:function(){
-      this.isTrue1=false;
       getDepart().then((res)=>{
         if(res.data.code==10000){
           this.departList=res.data.data;
@@ -246,10 +244,6 @@
 
       if (this.$route.query.id){
         this.isTrue=true;
-        this.isTrue1=true;
-        if(getCookie('power')==9999){
-          this.isTrue1=false;
-        }
         let params = {id:this.$route.query.id};
         getUserPhone(params).then((res)=>{
           if(res.data.code==10000){
@@ -262,7 +256,11 @@
             this.ruleForm.post=res.data.data.post;
             this.ruleForm.jiguan=res.data.data.jiguan;
             this.ruleForm.address=res.data.data.address;
-            this.ruleForm.education=Number(res.data.data.education);
+            if(res.data.data.education==null||res.data.data.education==''){
+              this.ruleForm.education='';
+            }else{
+              this.ruleForm.education=Number(res.data.data.education);
+            }
             this.ruleForm.qq=res.data.data.qq;
             this.ruleForm.email=res.data.data.email;
             this.ruleForm.power=Number(res.data.data.power);

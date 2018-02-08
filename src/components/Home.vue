@@ -83,7 +83,7 @@
 
 <script>
 import {setCookie,getCookie,delCookie} from '../cookie'
-import {putStatus} from './api'
+import {putStatus,getMessage0} from './api'
 export default {
   name: 'app',
   data () {
@@ -101,6 +101,15 @@ export default {
         this.power=false;
       }
       this.name=getCookie('name')
+      let params={uid:getCookie('account')}
+      getMessage0(params).then((res)=>{
+          if(res.data.data!=0){
+            this.$notify.info({
+              title: '消息',
+              message: '您有'+res.data.data+'条未读留言,请到信息交流模块下查看!'
+            });
+          }
+      })
     }
   },
   mounted:function(){

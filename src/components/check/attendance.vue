@@ -123,17 +123,32 @@
             str=null;
             str1=null;
           }else{
-            if(res.data.data[0].status==0){
-              str=res.data.data[0].count;
-            }
-            if(res.data.data[1].status==1){
-              str1=res.data.data[1].count;
-            }
-            if(res.data.data[1].status==0){
-              str=res.data.data[1].count;
-            }
-            if(res.data.data[0].status==1){
-              str1=res.data.data[0].count;
+            if(res.data.data.length<2){
+              if(res.data.data[0].status==0){
+                str=res.data.data[0].count;
+              }
+              if(res.data.data[0].status==1){
+                str1=res.data.data[0].count;
+              }
+              if(str==null){
+                str=0;
+              }
+              if(str1==null){
+                str1=0;
+              }
+            }else{
+              if(res.data.data[0].status==0){
+                str=res.data.data[0].count;
+              }
+              if(res.data.data[1].status==1){
+                str1=res.data.data[1].count;
+              }
+              if(res.data.data[1].status==0){
+                str=res.data.data[1].count;
+              }
+              if(res.data.data[0].status==1){
+                str1=res.data.data[0].count;
+              }
             }
           }
 
@@ -188,14 +203,18 @@
           })
 
         getDepartCheck(params).then((res)=>{
-          var arr=[];
-          arr=res.data.total;
-          for(var i=0;i<arr.length;i++){
-            for(var j =0;j<res.data.data.length;j++){
-              if(arr[i].name==res.data.data[j].name){
-                arr[i].value=res.data.data[j].count;
+          var arr=res.data.total;
+          if(res.data.data.length==0){
+            for(var i=0;i<arr.length;i++){
+              arr[i].value=0;
+            }
+          }else{
+            for(var i=0;i<arr.length;i++){
+              for(var j =0;j<res.data.data.length;j++){
+                if(arr[i].name==res.data.data[j].name){
+                  arr[i].value=res.data.data[j].count;
+                }
               }
-
             }
           }
 

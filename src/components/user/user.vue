@@ -41,9 +41,9 @@
               <div>{{ scope.row.qq}}</div>
             </template>
           </el-table-column>
-          <el-table-column label="E-mail" prop="Email" align="center" min-width="120" >
+          <el-table-column label="E-mail" prop="email" align="center" min-width="120" >
             <template slot-scope="scope">
-              <div>{{ scope.row.Email}}</div>
+              <div>{{ scope.row.email}}</div>
             </template>
           </el-table-column>
           <el-table-column label="性别" prop="sex" align="center" min-width="120" >

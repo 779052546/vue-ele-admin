@@ -279,5 +279,5 @@
 <style scoped>
   @import '../public.css';
   .dialog{  width: 1100px;  margin:0px auto;  }
-  .content{  width: 340px;  margin: 0 auto;  margin-left: 130px; }
+  .content{  width: 340px;  margin: 0 auto;  margin-left: 100px; }
 </style>

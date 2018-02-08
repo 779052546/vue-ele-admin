@@ -107,3 +107,5 @@ export const getPower = params =>{ return axios.get(url+'/power',{params:params}
 export const getUserDepat = params =>{ return axios.get(url+'/userdepartment',{params:params})}
 //获取学历信息
 export const getEducation = params =>{ return axios.get(url+'/education',{params:params})}
+//获取未读留言多少条
+export const getMessage0 = params =>{ return axios.get(url+'/message0',{params:params})}
