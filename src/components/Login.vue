@@ -70,7 +70,6 @@
                 setCookie('name',res.data.data.name);
                 let params = {id : getCookie('account'),status:1} ;
                 putStatus(params).then((res)=>{
-                  setCookie('inde',0);
                   this.$router.push('/Home/User')
                 })
 

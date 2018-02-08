@@ -18,7 +18,7 @@ import Price from '@/components/price/price.vue'
 import Pricesets from '@/components/price/pricesets.vue'
 import Depart from '@/components/post/department.vue'
 import Post from '@/components/post/post.vue'
-import Room from '@/components/talk/room.vue'
+import Message from '@/components/talk/message.vue'
 import {getCookie} from '../cookie'
 
 Vue.use(Router)
@@ -92,7 +92,7 @@ const routes =[
     component: Home,
     name:'信息交流',
     children:[
-      {path:'Room',component:Room,name:'留言'},
+      {path:'Message',component:Message,name:'留言'},
     ]
   },
   {path:'*',redirect:'/Home/User'}

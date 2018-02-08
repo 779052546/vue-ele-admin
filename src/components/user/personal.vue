@@ -65,7 +65,7 @@
            <el-input type="text" v-model.trim="ruleForm.attendance" auto-complete="off" class="required" :maxlength="16" @change="price" :disabled="true"></el-input>
          </el-form-item>
          <el-form-item label="入职日期" prop="entry">
-           <el-date-picker type="date" v-model.trim="ruleForm.entry" :editable="false" auto-complete="off" class="required" :maxlength="16" format="yyyy-MM-dd" @change="getStime" :disabled="isTrue"></el-date-picker>
+           <el-date-picker type="date" v-model.trim="ruleForm.entry" :editable="false" auto-complete="off" class="required" :maxlength="16" format="yyyy-MM-dd" @change="getStime" :disabled="true"></el-date-picker>
          </el-form-item>
        </div>
         <div class="leftBoxA">
@@ -216,7 +216,6 @@
         roleList:[],
         departList:[],  //部门列表
         educationList:[], //学历列表
-        isTrue:false,   //判断入职日期
         id:''
       };
     },
@@ -242,36 +241,33 @@
         }
       })
 
-      if (this.$route.query.id){
-        this.isTrue=true;
-        let params = {id:this.$route.query.id};
-        getUserPhone(params).then((res)=>{
-          if(res.data.code==10000){
-            this.ruleForm.name=res.data.data.name;
-            this.ruleForm.phone=res.data.data.phone;
-            this.ruleForm.sex=res.data.data.sex;
-            this.ruleForm.birthday=res.data.data.birthday;
-            this.ruleForm.textarea=res.data.data.textarea;
-            this.ruleForm.department=res.data.data.department;
-            this.ruleForm.post=res.data.data.post;
-            this.ruleForm.jiguan=res.data.data.jiguan;
-            this.ruleForm.address=res.data.data.address;
-            if(res.data.data.education==null||res.data.data.education==''){
-              this.ruleForm.education='';
-            }else{
-              this.ruleForm.education=Number(res.data.data.education);
-            }
-            this.ruleForm.qq=res.data.data.qq;
-            this.ruleForm.email=res.data.data.email;
-            this.ruleForm.power=Number(res.data.data.power);
-            this.ruleForm.price=Number(res.data.data.price);
-            this.ruleForm.entry=res.data.data.entry;
-            this.ruleForm.basepay=res.data.data.basepay;
-            this.ruleForm.postbt=res.data.data.postbt;
-            this.ruleForm.attendance=res.data.data.attendance;
+      let params = {id:getCookie('account')};
+      getUserPhone(params).then((res)=>{
+        if(res.data.code==10000){
+          this.ruleForm.name=res.data.data.name;
+          this.ruleForm.phone=res.data.data.phone;
+          this.ruleForm.sex=res.data.data.sex;
+          this.ruleForm.birthday=res.data.data.birthday;
+          this.ruleForm.textarea=res.data.data.textarea;
+          this.ruleForm.department=res.data.data.department;
+          this.ruleForm.post=res.data.data.post;
+          this.ruleForm.jiguan=res.data.data.jiguan;
+          this.ruleForm.address=res.data.data.address;
+          if(res.data.data.education==null||res.data.data.education==''){
+            this.ruleForm.education='';
+          }else{
+            this.ruleForm.education=Number(res.data.data.education);
           }
-        })
-      }
+          this.ruleForm.qq=res.data.data.qq;
+          this.ruleForm.email=res.data.data.email;
+          this.ruleForm.power=Number(res.data.data.power);
+          this.ruleForm.price=Number(res.data.data.price);
+          this.ruleForm.entry=res.data.data.entry;
+          this.ruleForm.basepay=res.data.data.basepay;
+          this.ruleForm.postbt=res.data.data.postbt;
+          this.ruleForm.attendance=res.data.data.attendance;
+        }
+      })
     },
     mounted: function () {
 

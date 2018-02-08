@@ -5,8 +5,8 @@
         <el-dropdown trigger="hover">
           <span class="el-dropdown-link userinfo-inner">{{name}}</span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>我的消息</el-dropdown-item>
-            <el-dropdown-item>设置</el-dropdown-item>
+            <el-dropdown-item @click.native="message">我的留言</el-dropdown-item>
+            <el-dropdown-item @click.native="personal">个人信息管理</el-dropdown-item>
             <el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -20,7 +20,7 @@
             <span slot="title">人员档案</span>
           </template>
           <el-menu-item index="/Home/User" style="padding-left: 53px;" class="skipbtn">信息查看</el-menu-item>
-          <el-menu-item index="/Home/Personal" style="padding-left: 53px;" class="skipbtn" @click="skipBtn">个人信息管理</el-menu-item>
+          <el-menu-item index="/Home/Personal" style="padding-left: 53px;" class="skipbtn">个人信息管理</el-menu-item>
           <el-menu-item index="/Home/Password" style="padding-left: 53px;" class="skipbtn">登录密码修改</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
@@ -71,7 +71,7 @@
             <i class="el-icon-setting"></i>
             <span slot="title">信息交流</span>
           </template>
-          <el-menu-item index="/Home/Room" style="padding-left: 53px;" class="skipbtn">留言</el-menu-item>
+          <el-menu-item index="/Home/Message" style="padding-left: 53px;" class="skipbtn">留言</el-menu-item>
         </el-submenu>
       </el-menu>
     </el-row>
@@ -117,16 +117,16 @@ export default {
   },
   methods: {
     init:function(){
-      if(getCookie('inde')){
-        $('.skipbtn').eq(getCookie('inde')).css({'color':'#fff','background-color':'#C2AA5D'})
-      }
-      $('.skipbtn').each(function(i){
-        $(this).on('click',function(){
-          $('.skipbtn').css({'color':'#48576A','background-color':'#D9DEEA'});
-          $(this).css({'color':'#fff','background-color':'#C2AA5D'});
-          setCookie('inde',i);
-        })
-      })
+//      if(getCookie('inde')){
+//        $('.skipbtn').eq(getCookie('inde')).css({'color':'#fff','background-color':'#C2AA5D'})
+//      }
+//      $('.skipbtn').each(function(i){
+//        $(this).on('click',function(){
+//          $('.skipbtn').css({'color':'#48576A','background-color':'#D9DEEA'});
+//          $(this).css({'color':'#fff','background-color':'#C2AA5D'});
+//          setCookie('inde',i);
+//        })
+//      })
     },
     logout:function(){
       let params = {id : getCookie('account'),status:0} ;
@@ -136,8 +136,11 @@ export default {
       delCookie('name');
       this.$router.push('/');
     },
-    skipBtn:function(){
-      this.$router.push({path:'/Home/Personal',query:{id:getCookie('account')}});
+    message:function(){
+      this.$router.push({path:'/Home/Message'});
+    },
+    personal:function(){
+      this.$router.push({path:'/Home/Personal'});
     },
   }
 }
