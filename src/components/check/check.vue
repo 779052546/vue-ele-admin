@@ -9,8 +9,7 @@
       <h3>打卡</h3></el-row>
     <el-row class="section">
       <p>每天八点半之前上班打卡</p>
-      <el-button type="primary" :loading="loading" @click="submitForm" :disabled="isTrue"><span v-if="!isTrue">打卡</span><span v-if="isTrue">今日已打卡{{isTime}}</span></el-button>
-      <span v-if="!isTrue">{{time}}</span>
+      <el-button type="primary" :loading="loading" @click="submitForm" :disabled="isTrue"><span v-if="!isTrue">打卡 {{time}}</span><span v-if="isTrue">今日已打卡{{isTime}}</span></el-button>
     </el-row>
   </div>
 </template>
@@ -62,7 +61,7 @@
     methods: {
       submitForm() {
         this.loading=true;
-        if(this.time<'08:30:00'){
+        if(this.time<'09:00:00'){
           this.status=1;
         }else{
           this.status=0;

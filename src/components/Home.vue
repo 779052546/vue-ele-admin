@@ -34,7 +34,7 @@
           <el-menu-item index="/Home/Checkmonth" style="padding-left: 53px;" class="skipbtn">月打卡统计</el-menu-item>
           <el-menu-item index="/Home/Attendance" style="padding-left: 53px;" class="skipbtn">考勤统计表</el-menu-item>
         </el-submenu>
-        <el-submenu index="3">
+        <el-submenu index="3" v-if="power">
           <template slot="title">
             <i class="el-icon-setting"></i>
             <span slot="title">绩效管理</span>
@@ -48,7 +48,7 @@
           </template>
           <el-menu-item index="/Home/Work" style="padding-left: 53px;" class="skipbtn">合同到期提醒</el-menu-item>
           <el-menu-item index="/Home/Birthday" style="padding-left: 53px;" class="skipbtn">生日提醒</el-menu-item>
-          <el-menu-item index="/Home/Batch" style="padding-left: 53px;" class="skipbtn">审批提醒</el-menu-item>
+          <el-menu-item index="/Home/Batch" style="padding-left: 53px;" class="skipbtn" v-if="power">审批提醒</el-menu-item>
         </el-submenu>
         <el-submenu index="5">
           <template slot="title">

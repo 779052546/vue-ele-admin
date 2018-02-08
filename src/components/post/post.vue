@@ -8,7 +8,7 @@
       </el-breadcrumb>
       <h3>岗位查看</h3></el-row>
     <el-row class="section">
-      <div> <el-button type="primary" @click="addAttendance">添加岗位</el-button></div>
+      <div> <el-button @click="addAttendance" v-if="power">添加岗位</el-button></div>
       <el-table v-loading.body="loading" :data="tableData" border max-height="651">
         <el-table-column label="序列号" type="index" align="center" width="120"></el-table-column>
         <el-table-column label="岗位" prop="pname" align="center" min-width="120">
@@ -26,7 +26,7 @@
             <div>{{ scope.row.name}}</div>
           </template>
         </el-table-column>
-        <el-table-column label="操作" align="center" width="140px">
+        <el-table-column label="操作" align="center" v-if="power" width="140px">
           <template slot-scope="scope">
             <div><el-button size="small" type="primary" @click="resetAttendance(scope.$index, scope.row)">调整全勤奖</el-button></div>
           </template>
@@ -165,9 +165,16 @@
         },
         departList:[],  //部门列表
         id:'',
+        power:false
       }
     },
     created:function(){
+      if(getCookie('power')==9999){
+        this.power=true;
+      }else{
+        this.power=false;
+      }
+
       getDepart().then((res)=>{
         if(res.data.code==10000){
           this.departList=res.data.data;

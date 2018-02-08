@@ -9,7 +9,7 @@
       <h3>部门查看</h3></el-row>
     <el-row class="section">
       <div id="myChart" :style="{width: '700px', height: '600px' }"></div>
-      <el-col><el-button @click="dialogBtn">添加部门</el-button></el-col>
+      <el-col><el-button @click="dialogBtn" v-if="power">添加部门</el-button></el-col>
     </el-row>
 
     <!--添加-->
@@ -33,11 +33,17 @@
     data () {
       return {
         editFormVisible:false,
-        name:''
+        name:'',
+
+        power:false
       }
     },
     created:function(){
-
+      if(getCookie('power')==9999){
+        this.power=true;
+      }else{
+        this.power=false;
+      }
     },
     mounted: function () {
       this.drawLine();
