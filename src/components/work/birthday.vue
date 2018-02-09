@@ -7,18 +7,20 @@
         </el-breadcrumb-item>
       </el-breadcrumb>
       <h3>生日提醒</h3></el-row>
-    <el-row class="section" v-if="!power">
-      <el-card :body-style="{ padding: '0px' }">
-        <img src="/static/img/timg.jpg" class="image">
-        <div style="padding: 14px;">
-          <span>{{birthdayId.name}}</span>
-          <div class="bottom clearfix">
-            <time class="time">生日：{{ birthdayId.birthday | Birthday}}</time>
+    <el-row class="section section1" v-if="!power">
+      <div>
+        <el-card :body-style="{ padding: '0px' }">
+          <img src="/static/img/timg.jpg" class="image">
+          <div style="padding: 14px;">
+            <span>{{birthdayId.name}}</span>
+            <div class="bottom clearfix">
+              <time class="time">生日：{{ birthdayId.birthday | Birthday}}</time>
+            </div>
           </div>
-        </div>
-      </el-card>
+        </el-card>
+      </div>
     </el-row>
-    <el-row class="section" v-if="power">
+    <el-row class="section section2" v-if="power">
       <p style="min-width: 370px;">生日月份<el-select v-model="date" placeholder="选择月份"><el-option v-for="item in 12" :key="item" :value="item" :label="item+'月'"></el-option></el-select><el-button type="primary" @click="getWorkbirthday">查询</el-button></p>
       <div v-for="(item, index) in tableData" :key="item.id" :offset="index > 0 ? 2 : 0">
           <el-card :body-style="{ padding: '0px' }">
@@ -114,8 +116,9 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   @import '../public.css';
-  .section>div{  width: 280px;  float: left;  margin-left:10px;  margin-bottom: 10px;}
-  .section img{  width: 280px;  }
+  .section2>div{  width: 280px;  float: left;  margin-left:10px;  margin-bottom: 10px;}
+  img{  width: 280px;  }
   .section{  padding: 50px;  }
   .el-button{  margin-left: 10px;  }
+  .section1>div{  width: 280px;  margin:0 auto;  }
 </style>

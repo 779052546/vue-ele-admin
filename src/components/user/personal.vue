@@ -23,7 +23,7 @@
            </el-select>
          </el-form-item>
          <el-form-item label="生日" prop="birthday">
-           <el-date-picker type="date" v-model.trim="ruleForm.birthday" :editable="false" auto-complete="off" :maxlength="16" format="yyyy-MM-dd" @change="getStime"></el-date-picker>
+           <el-date-picker type="date" v-model.trim="ruleForm.birthday" :editable="false" :maxlength="16" format="yyyy-MM-dd" @change="getStime"></el-date-picker>
          </el-form-item>
          <el-form-item label="个人签名" prop="textarea">
            <el-input type="textarea" v-model.trim="ruleForm.textarea" resize="none" :rows="4" :maxlength="100"></el-input>
@@ -33,8 +33,8 @@
              <el-option v-for="item in departList" :key="item.id" :label="item.name" :value="item.id"></el-option>
            </el-select>
          </el-form-item>
-         <el-form-item label="籍贯" prop="jiguan">
-           <el-input type="text" v-model.trim="ruleForm.jiguan" auto-complete="off" :maxlength="16"></el-input>
+         <el-form-item label="籍贯" prop="origin">
+           <el-input type="text" v-model.trim="ruleForm.origin" auto-complete="off" :maxlength="16"></el-input>
          </el-form-item>
          <el-form-item label="住址" prop="address">
            <el-input type="text" v-model.trim="ruleForm.address" auto-complete="off" :maxlength="16"></el-input>
@@ -168,7 +168,7 @@
           textarea:'',  //个人签名
           department:'', //部门
           post:'',    //岗位
-          jiguan:'',   //籍贯
+          origin:'',   //籍贯
           address:'',  //现住址
           education:'',  //学历
           qq:'',
@@ -251,7 +251,7 @@
           this.ruleForm.textarea=res.data.data.textarea;
           this.ruleForm.department=res.data.data.department;
           this.ruleForm.post=res.data.data.post;
-          this.ruleForm.jiguan=res.data.data.jiguan;
+          this.ruleForm.origin=res.data.data.origin;
           this.ruleForm.address=res.data.data.address;
           if(res.data.data.education==null||res.data.data.education==''){
             this.ruleForm.education='';
@@ -280,7 +280,7 @@
             if(this.ruleForm.birthday==''){
               this.ruleForm.birthday=null;
             }
-            let params={id:this.$route.query.id,name:this.ruleForm.name, phone:this.ruleForm.phone, sex:this.ruleForm.sex, birthday:this.ruleForm.birthday, textarea:this.ruleForm.textarea,department:this.ruleForm.department, post:this.ruleForm.post, jiguan:this.ruleForm.jiguan, address:this.ruleForm.address,education:this.ruleForm.education, qq:this.ruleForm.qq, email:this.ruleForm.email, power:this.ruleForm.power, price:this.ruleForm.price, entry:this.ruleForm.entry, basepay:this.ruleForm.basepay, postbt:this.ruleForm.postbt, attendance:this.ruleForm.attendance};
+            let params={id:getCookie('account'),name:this.ruleForm.name, phone:this.ruleForm.phone, sex:this.ruleForm.sex, birthday:this.ruleForm.birthday, textarea:this.ruleForm.textarea,department:this.ruleForm.department, post:this.ruleForm.post, origin:this.ruleForm.origin, address:this.ruleForm.address,education:this.ruleForm.education, qq:this.ruleForm.qq, email:this.ruleForm.email, power:this.ruleForm.power, price:this.ruleForm.price, entry:this.ruleForm.entry, basepay:this.ruleForm.basepay, postbt:this.ruleForm.postbt, attendance:this.ruleForm.attendance};
             putUserId(params).then((res)=>{
               if(res.data.code==10000){
                 this.$message.success('修改成功!');
@@ -308,6 +308,9 @@
         this.ruleForm.price=Number(this.ruleForm.basepay)+ Number(this.ruleForm.postbt);
       },
       getStime(val){
+        if(this.ruleForm.birthday==null){
+          return;
+        }
         this.ruleForm.birthday=val;
       },
       getStime1(val){

@@ -61,9 +61,19 @@
               <div>{{ scope.row.address}}</div>
             </template>
           </el-table-column>
+          <el-table-column label="籍贯" prop="origin" align="center" min-width="160" >
+            <template slot-scope="scope">
+              <div>{{ scope.row.origin}}</div>
+            </template>
+          </el-table-column>
           <el-table-column label="生日" prop="birthday" align="center" min-width="120" >
             <template slot-scope="scope">
               <div>{{ scope.row.birthday | StampChan}}</div>
+            </template>
+          </el-table-column>
+          <el-table-column label="学历" prop="education" align="center" min-width="120" >
+            <template slot-scope="scope">
+              <div>{{ scope.row.education }}</div>
             </template>
           </el-table-column>
           <el-table-column label="是否在线" prop="status" align="center" min-width="120" >
@@ -367,7 +377,7 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             this.loading1=true;
-            let params={name:this.ruleForm.name, phone:this.ruleForm.phone, sex:this.ruleForm.sex, birthday:this.ruleForm.birthday, textarea:this.ruleForm.textarea,department:this.ruleForm.department, post:this.ruleForm.post, jiguan:this.ruleForm.jiguan, address:this.ruleForm.address,education:this.ruleForm.education, qq:this.ruleForm.qq, email:this.ruleForm.email, power:this.ruleForm.power, price:this.ruleForm.price, entry:this.ruleForm.entry, basepay:this.ruleForm.basepay, postbt:this.ruleForm.postbt, attendance:this.ruleForm.attendance};
+            let params={name:this.ruleForm.name, phone:this.ruleForm.phone, sex:this.ruleForm.sex, birthday:this.ruleForm.birthday, textarea:this.ruleForm.textarea,department:this.ruleForm.department, post:this.ruleForm.post, origin:this.ruleForm.origin, address:this.ruleForm.address,education:this.ruleForm.education, qq:this.ruleForm.qq, email:this.ruleForm.email, power:this.ruleForm.power, price:this.ruleForm.price, entry:this.ruleForm.entry, basepay:this.ruleForm.basepay, postbt:this.ruleForm.postbt, attendance:this.ruleForm.attendance};
             postUserId(params).then((res)=>{
               if(res.data.code==10000){
                 this.$message.success('添加成功!');

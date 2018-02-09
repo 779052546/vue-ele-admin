@@ -106,7 +106,7 @@
             },
             yAxis: {},
             series: [{
-              name: '打卡人数',
+              name: '打卡次数',
               type: 'bar',
               data: arr1
             }]
