@@ -64,7 +64,6 @@
             postAccount(params).then((res)=>{
               if(res.data.code==10000){
                 this.logining=false;
-                this.$message.success('登录成功!');
                 setCookie('account',res.data.data.id);
                 setCookie('power',res.data.data.power);
                 setCookie('name',res.data.data.name);

@@ -63,7 +63,7 @@
             <el-option v-for="item in userList" :key="item.id" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="手机号" prop="textarea">
+        <el-form-item label="留言" prop="textarea">
           <el-input type="textarea" v-model.trim="ruleForm.textarea" auto-complete="off" class="required" :maxlength="20"></el-input>
         </el-form-item>
         <el-form-item>
@@ -247,6 +247,10 @@
           })
       },
       deleteMessage(can1,can2){
+        if(can2.status==0){
+          this.$message.error('该留言未读不能删除!');
+          return false;
+        }
         let params={id:can2.id}
         deleteMessage(params).then((res)=>{
           if(res.data.code==10000){
