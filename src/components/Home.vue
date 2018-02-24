@@ -1,6 +1,7 @@
 <template>
   <div class="app">
     <el-row class="header">
+      <span>XX公司信息管理系统</span>
       <div class="header-right">
         <el-dropdown trigger="hover">
           <span class="el-dropdown-link userinfo-inner">{{name}}</span>
@@ -150,14 +151,12 @@ export default {
 <style scoped>
   .app{  padding-top: 60px;  padding-left: 234px;  transition: all 0.2s ease 0s ;  }
   .header{  position: absolute;  height: 60px;  line-height: 60px;  width: 100%;  top: 0;  left: 0;  background-color: #0F4D76; border-bottom:1px solid #ccc; color: #fff;z-index: 1;  }
+  .header>span{  font-size: 22px;  padding-left: 12px;float:left;}
   .header .header-right{  float: right;  }
   .header span{  color: #fff;  }
   .aside{  width: 234px;  height: 100%;  position: absolute;  top: 0px;  left: 0;
     padding-top: 60px; background-color: #EEF1F6;  }
   .app .router{  padding: 10px;  margin:0;  }
   .breadcrumb-inner{  padding-left: 10px;  padding-top: 10px;  }
-  .sectionT{
-    height: 100%;
-    overflow: auto;
-  }
+  .sectionT{  height: 100%;  overflow: auto;  }
 </style>

@@ -32,6 +32,9 @@ const routes =[
   {
     path: '/Home',
     component: Home,
+    meta: {
+      requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+    },
     name:'人员档案',
     children:[
       {path:'User',component:User,name:'信息查看'},
@@ -42,6 +45,9 @@ const routes =[
   {
     path: '/Home',
     component: Home,
+    meta: {
+      requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+    },
     name:'考勤管理',
     children:[
       {path:'Check',component:Check,name:'个人打卡'},
@@ -54,6 +60,9 @@ const routes =[
   {
     path: '/Home',
     component: Home,
+    meta: {
+      requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+    },
     name:'绩效管理',
     children:[
       {path:'Achievements',component:Achievements,name:'当月绩效'},
@@ -62,6 +71,12 @@ const routes =[
   {
     path: '/Home',
     component: Home,
+    meta: {
+      requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+    },
+    meta: {
+      requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+    },
     name:'工作提醒',
     children:[
       {path:'Work',component:Work,name:'合同到期提醒'},
@@ -72,6 +87,9 @@ const routes =[
   {
     path: '/Home',
     component: Home,
+    meta: {
+      requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+    },
     name:'薪资管理',
     children:[
       {path:'Price',component:Price,name:'个人薪资'},
@@ -81,6 +99,9 @@ const routes =[
   {
     path: '/Home',
     component: Home,
+    meta: {
+      requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+    },
     name:'岗位管理',
     children:[
       {path:'Depart',component:Depart,name:'部门查看'},
@@ -90,6 +111,9 @@ const routes =[
   {
     path: '/Home',
     component: Home,
+    meta: {
+      requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+    },
     name:'信息交流',
     children:[
       {path:'Message',component:Message,name:'留言'},
