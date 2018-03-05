@@ -222,6 +222,10 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            if(this.ruleForm.timebegin>this.ruleForm.timeover){
+              this.$message.error('请假结束时间不能小于起始时间!');
+              return;
+            }
             this.loading=true;
             let params={uid:getCookie('account'),name:this.ruleForm.name,phone:this.ruleForm.phone,department:this.ruleForm.department,type:this.ruleForm.type,timebegin:this.ruleForm.timebegin,timeover:this.ruleForm.timeover,reason:this.ruleForm.reason };
             postHoliday(params).then((res)=>{
@@ -283,7 +287,7 @@
   .el-form{  max-width: 340px;  padding: 20px;  margin:0px auto;  }
   .required:after{  content: '*';  position: absolute;  color: #ff4949;  margin-left: 10px;  right: -20px;  top: 0;}
   .requiredA:after{  right: 20px;  }
-  .sizeA,.el-date-editor{  width: 200px;  }
+  .sizeA,.el-date-editor{  width: 200px !important; }
   .el-col>.el-button{  margin-bottom: 10px;  }
   .box-card{  width: 320px;  height: 450px;float: left;  text-align: center;  position: relative;  overflow: hidden;  margin-right: 10px;  margin-bottom: 10px;}
   .box-card .rotate{  width: 100px;  height: 50px;  line-height: 50px;  position: absolute;  right: -5px;  bottom: 20px;  transform:rotate(-45deg);  border: 1px solid #c9c9c9;  }

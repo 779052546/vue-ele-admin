@@ -8,7 +8,7 @@
       </el-breadcrumb>
       <h3>留言</h3></el-row>
     <el-row class="section">
-      <el-button @click="editFormVisible=true">我要留言</el-button>
+      <el-button @click="openDialog">我要留言</el-button>
       <el-table v-loading.body="loading" :data="tableData" border max-height="651">
         <el-table-column label="序列号" type="index" align="center" width="120"></el-table-column>
         <el-table-column label="姓名" prop="name" align="center" min-width="120">
@@ -156,6 +156,12 @@
         this.page = val;
         this.getMessage();
       },
+      openDialog(){
+        this.editFormVisible=true;
+        this.ruleForm.department='';
+        this.ruleForm.uid='';
+        this.ruleForm.textarea='';
+      },
       getMessage(){
         this.loading=true;
         let params={page:this.page,uid:getCookie('account')};
@@ -274,4 +280,5 @@
   .dialog .content{  width: 340px;  margin: 0 auto;  margin-left: 60px; }
   .dialog .content1{  width: 100%;  text-align: center;  }
   .el-table .el-button{  margin-bottom: 10px;  }
+  .el-select, .el-input {  width: 180px  }
 </style>

@@ -227,4 +227,5 @@
   @import '../public.css';
   #dialog{  width: 1100px;  margin:0px auto;  }
   .content{  width: 340px;  margin: 0 auto;  }
+  .el-select, .el-input {  width: 180px  }
 </style>

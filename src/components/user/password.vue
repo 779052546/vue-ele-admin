@@ -130,4 +130,5 @@
 <style scoped>
   @import '../public.css';
   .el-form{  max-width: 340px;  padding: 20px;  margin:0px auto;  }
+  .el-select, .el-input {  width: 180px  }
 </style>

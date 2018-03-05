@@ -121,4 +121,5 @@
   .section{  padding: 50px;  }
   .el-button{  margin-left: 10px;  }
   .section1>div{  width: 280px;  margin:0 auto;  }
+  .el-select, .el-input {  width: 180px  }
 </style>

@@ -1,7 +1,6 @@
 .header{  width: 100%;  text-align: center;  border: 1px solid #ccc;  }
 .section{  width: 100%;  border:1px solid #ccc;  border-top:none;  padding: 10px;  }
 .breadcrumb-inner{  position: absolute;  top: 26px;  left: 10px;}
-.el-select, .el-input {  width: 180px  }
 .el-pagination{  padding: 5px 0;  }
 .block{  float: right;  }
 .el-table{  margin-top: 10px;  }

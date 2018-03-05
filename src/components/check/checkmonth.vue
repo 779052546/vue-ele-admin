@@ -183,4 +183,5 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   @import '../public.css';
+  .el-select, .el-input {  width: 180px  }
 </style>

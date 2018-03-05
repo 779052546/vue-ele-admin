@@ -137,4 +137,5 @@
   .section>div{  margin: 0 auto;  }
   #dialog{  width: 900px;  margin:0px auto;  }
   .content{  width: 300px;  margin: 0 auto;  }
+  .el-select, .el-input {  width: 180px  }
 </style>

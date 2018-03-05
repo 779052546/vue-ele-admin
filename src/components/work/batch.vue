@@ -248,7 +248,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   @import '../public.css';
-  .el-select,.el-input{  margin-bottom: 10px;  }
+  .el-select,.el-input{  margin-bottom: 10px; width: 180px }
   #dialog{  width: 1100px;  margin:0px auto;  }
   .content{  width: 340px;  margin: 0 auto;  }
 </style>

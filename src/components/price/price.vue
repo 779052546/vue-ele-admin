@@ -79,4 +79,5 @@
     margin-left: 52px;
     font-size: 14px;
   }
+  .el-select, .el-input {  width: 180px  }
 </style>

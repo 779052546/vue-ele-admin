@@ -329,4 +329,5 @@
   .el-date-editor{  width: 180px;  }
   .leftBox{  width: 50%;  float: left; height: 550px; }
   .leftBoxA{  width: 100%;float: left;  text-align: center;margin-left: -50px }
+  .el-select, .el-input {  width: 180px  }
 </style>

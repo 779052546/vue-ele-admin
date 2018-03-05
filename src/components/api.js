@@ -109,3 +109,7 @@ export const getUserDepat = params =>{ return axios.get(url+'/userdepartment',{p
 export const getEducation = params =>{ return axios.get(url+'/education',{params:params})}
 //获取未读留言多少条
 export const getMessage0 = params =>{ return axios.get(url+'/message0',{params:params})}
+//获取多少用户
+export const getUserCount = params =>{ return axios.get(url+'/usercount')}
+//获取待审批提醒次数
+export const getBatch0 = params =>{ return axios.get(url+'/batch0',{params:params})}

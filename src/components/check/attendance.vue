@@ -285,12 +285,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   @import '../public.css';
-  .elcol{
-    width: 100%;
-  }
-  .elcol>div{
-    width: 50%;
-    float: left;
-    margin-top: 10px;
-  }
+  .elcol{  width: 100%;  }
+  .elcol>div{  width: 50%;  float: left;  margin-top: 10px;  }
+  .el-select, .el-input {  width: 180px  }
 </style>
