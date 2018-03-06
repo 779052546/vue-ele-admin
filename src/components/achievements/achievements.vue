@@ -45,7 +45,7 @@
               <div>{{ scope.row.holiday}}</div>
             </template>
           </el-table-column>
-          <el-table-column label="当月是否有全勤奖" sortable prop="createTime" align="center" width="180">
+          <el-table-column label="当月是否有全勤奖" prop="createTime" align="center" width="180">
             <template slot-scope="scope">
               <div><span v-if="scope.row.daycount==scope.row.count?false:true">无</span></div>
             </template>
