@@ -3,11 +3,11 @@
     <h3 class="title">系统登录</h3>
     <el-form-item prop="account">
       <input type="text"style="display: none">
-      <el-input type="text" v-model="ruleForm2.account" auto-complete="off" autocomplete="off" placeholder="账号" :maxlength="11" @keyup.enter.native="handleSubmit"></el-input>
+      <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号" :maxlength="11" @keyup.enter.native="handleSubmit"></el-input>
     </el-form-item>
     <el-form-item prop="checkPass">
       <input type="text"style="display: none">
-      <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" autocomplete="off" placeholder="密码" :maxlength="16" @keyup.enter.native="handleSubmit"></el-input>
+      <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" placeholder="密码" :maxlength="16" @keyup.enter.native="handleSubmit"></el-input>
     </el-form-item>
     <el-form-item style="width:100%;">
       <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit" :loading="logining">登录</el-button>
