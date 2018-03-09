@@ -279,6 +279,6 @@
   .dialog{  width: 1100px;  margin:0px auto;  }
   .dialog .content{  width: 340px;  margin: 0 auto;  margin-left: 60px; }
   .dialog .content1{  width: 100%;  text-align: center;  }
-  .el-table .el-button{  margin-bottom: 10px;  }
+  .el-table .el-button{  margin-bottom: 10px;  margin-left:0; }
   .el-select, .el-input {  width: 180px  }
 </style>

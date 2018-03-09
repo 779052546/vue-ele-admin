@@ -498,6 +498,6 @@
   .leftBox{  width: 50%;  float: left;  }
   #dialog{  width: 1500px;  margin: 0 auto;  }
   #dialog .el-dialog{  width: 100%;  display: inline-block;  }
-  .el-table .el-button{  margin-bottom: 10px;  }
+  .el-table .el-button{  margin-bottom: 10px;  margin-left:0; }
   .el-select, .el-input {  width: 180px  }
 </style>
