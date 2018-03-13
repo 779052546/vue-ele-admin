@@ -16,9 +16,9 @@
             <div>{{ scope.row.name}}</div>
           </template>
         </el-table-column>
-        <el-table-column label="手机号" prop="phone" align="center" min-width="120">
+        <el-table-column label="部门" prop="department" align="center" min-width="120">
           <template slot-scope="scope">
-            <div>{{ scope.row.phone}}</div>
+            <div>{{ scope.row.department}}</div>
           </template>
         </el-table-column>
         <el-table-column label="留言时间" prop="time" align="center" min-width="120" >
@@ -161,6 +161,12 @@
         this.ruleForm.department='';
         this.ruleForm.uid='';
         this.ruleForm.textarea='';
+        let param={id:getCookie('account')}
+        getUserDepat(param).then((res)=>{
+          if(res.data.code==10000){
+            this.ruleForm.depart=res.data.data.name;
+          }
+        })
       },
       getMessage(){
         this.loading=true;
@@ -177,12 +183,14 @@
       },
       changeUser(){
         this.userList=[];
+        this.ruleForm.uid='';
         let params={department:this.ruleForm.department,id:getCookie(('account'))}
         getMessageUser(params).then((res)=>{
             if(res.data.code==10000){
               this.userList=res.data.data;
             }
         })
+
         let param={id:getCookie('account')}
         getUserDepat(param).then((res)=>{
           if(res.data.code==10000){
@@ -194,7 +202,7 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
             let time = this.chooseYear();
-            let params = {name:this.ruleForm.name,phone:this.ruleForm.phone,uid:this.ruleForm.uid,textarea:this.ruleForm.textarea,time};
+            let params = {name:this.ruleForm.name,department:this.ruleForm.depart,uid:this.ruleForm.uid,textarea:this.ruleForm.textarea,time};
             postMessage(params).then((res)=>{
               if(res.data.code==10000){
                 this.$message.success('留言成功!');

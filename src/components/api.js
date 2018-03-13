@@ -103,7 +103,7 @@ export const getPost = params =>{ return axios.get(url+'/post',{params:params})}
 export const getPostId = params =>{ return axios.get(url+'/postid',{params:params})}
 //获取权限信息
 export const getPower = params =>{ return axios.get(url+'/power',{params:params})}
-//左联查询查询用户哪个部门 用于请假
+//左联查询 查询用户哪个部门 用于请假
 export const getUserDepat = params =>{ return axios.get(url+'/userdepartment',{params:params})}
 //获取学历信息
 export const getEducation = params =>{ return axios.get(url+'/education',{params:params})}
