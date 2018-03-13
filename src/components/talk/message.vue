@@ -16,6 +16,11 @@
             <div>{{ scope.row.name}}</div>
           </template>
         </el-table-column>
+        <el-table-column label="手机号" prop="phone" align="center" min-width="120">
+          <template slot-scope="scope">
+            <div>{{ scope.row.phone}}</div>
+          </template>
+        </el-table-column>
         <el-table-column label="留言时间" prop="time" align="center" min-width="120" >
           <template slot-scope="scope">
             <div>{{ scope.row.time | StampChanYear}}</div>
@@ -178,12 +183,18 @@
               this.userList=res.data.data;
             }
         })
+        let param={id:getCookie('account')}
+        getUserDepat(param).then((res)=>{
+          if(res.data.code==10000){
+            this.ruleForm.phone=res.data.data.phone;
+          }
+        })
       },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             let time = this.chooseYear();
-            let params = {name:this.ruleForm.name,uid:this.ruleForm.uid,textarea:this.ruleForm.textarea,time};
+            let params = {name:this.ruleForm.name,phone:this.ruleForm.phone,uid:this.ruleForm.uid,textarea:this.ruleForm.textarea,time};
             postMessage(params).then((res)=>{
               if(res.data.code==10000){
                 this.$message.success('留言成功!');
