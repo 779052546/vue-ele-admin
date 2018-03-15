@@ -70,6 +70,7 @@
                 let params = {id : getCookie('account'),status:1} ;
                 putStatus(params).then((res)=>{
                   this.$router.push('/Home/User')
+                  setCookie('index',0);
                 })
 
               }else if(res.data.code==10001){
