@@ -14,7 +14,7 @@
       <el-card class="box-card" v-for="item in holidayList" :key="item.id">
         <div slot="header" class="clearfix">
           <span>请假单</span>
-          <el-button style="float: right; padding: 3px 0" type="text" v-if="item.status==2" @click="deleteButton(item.id)">删除</el-button>
+          <!--<el-button style="float: right; padding: 3px 0" type="text" v-if="item.status==2" @click="deleteButton(item.id)">删除</el-button>-->
         </div>
         <div class="text item">
           <p>{{item.name}}</p>
