@@ -33,7 +33,7 @@
           <el-menu-item index="/Home/Checkday" style="padding-left: 53px;" class="skipbtn">打卡每日统计</el-menu-item>
           <el-menu-item index="/Home/Holiday" style="padding-left: 53px;" class="skipbtn">请假单</el-menu-item>
           <el-menu-item index="/Home/Checkmonth" style="padding-left: 53px;" class="skipbtn">月打卡统计</el-menu-item>
-          <el-menu-item index="/Home/Attendance" style="padding-left: 53px;" class="skipbtn">考勤统计表</el-menu-item>
+          <el-menu-item index="/Home/Attendance" style="padding-left: 53px;" class="skipbtn" v-if="power">考勤统计表</el-menu-item>
         </el-submenu>
         <el-submenu index="3">
           <template slot="title">
