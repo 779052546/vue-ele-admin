@@ -74,11 +74,11 @@
                 })
 
               }else if(res.data.code==10001){
+                this.$message.error('不存在的账号!');
                 this.logining=false;
-                this.$message.error(res.data.data);
               }else if(res.data.code==10002){
+                this.$message.error('登录密码错误,如有忘记请联系管理员!');
                 this.logining=false;
-                this.$message.error(res.data.data);
               }else{
                 this.logining=false;
                 this.$message.error('系统异常!');
