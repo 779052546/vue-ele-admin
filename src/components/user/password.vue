@@ -88,6 +88,10 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+              if(this.ruleForm.newPassword=='123456'){
+                this.$message.error('修改新密码不能为123456!');
+                return;
+              }
             this.loading=true;
             let params = {id:getCookie('account'),oriPassword:this.ruleForm.oriPassword,newPassword:this.ruleForm.newPassword};
             putPass(params).then((res)=>{
