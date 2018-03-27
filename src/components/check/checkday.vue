@@ -12,7 +12,7 @@
         <el-col :xs="4" :sm="6" :md="6" :lg="4" style="min-width: 270px;">成员姓名<el-input v-model.trim="name" style="width: 180px;" :maxlength="20"></el-input></el-col>
         <el-col :xs="4" :sm="6" :md="6" :lg="4" style="min-width: 270px;" v-if="power">打卡日期<el-date-picker v-model.trim="date" type="date" placeholder="选择日期" format="yyyy-MM-dd" :editable="false" :picker-options="pickerOptions" @change="valueFormat"></el-date-picker></el-col>
         <el-col :xs="8" :sm="8" :md="8" :lg="8"> <el-button type="primary" @click="getCheck">查询</el-button></el-col>
-        <p style="font-size:12px;float: right;">应打卡人数:{{countBegin}}</p>
+        <p style="font-size:12px;float: right;">{{nowDay}}应打卡人数:{{countBegin}}</p>
       </el-row>
       <el-row>
         <el-table v-loading.body="loading" :data="tableData" border max-height="651">
@@ -73,10 +73,12 @@
         size:30,   //每页多少条数据
         loading:false,
         countBegin:'', //应打卡人数
-        countOver:'',  //实际打卡人数
+        countOver:'',  //实际打卡人数,
+        nowDay:''
       }
     },
     created:function(){
+      this.nowDay=this.chooseTime();
       if(getCookie('power')==9999){
         this.power=true;
       }else{
