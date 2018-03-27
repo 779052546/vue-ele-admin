@@ -65,7 +65,7 @@
            <el-input type="text" v-model.trim="ruleForm.attendance" auto-complete="off" class="required" :maxlength="16" @change="price" :disabled="true"></el-input>
          </el-form-item>
          <el-form-item label="入职日期" prop="entry">
-           <el-date-picker type="date" v-model.trim="ruleForm.entry" :editable="false" auto-complete="off" class="required" :maxlength="16" format="yyyy-MM-dd" @change="getStime" :disabled="true"></el-date-picker>
+           <el-date-picker type="date" v-model.trim="ruleForm.entry" :editable="false" auto-complete="off" class="required" :maxlength="16" format="yyyy-MM-dd" @change="getStime1" :disabled="true"></el-date-picker>
          </el-form-item>
        </div>
         <div class="leftBoxA">
