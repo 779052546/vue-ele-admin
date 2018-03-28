@@ -1,7 +1,7 @@
 <template>
   <div class="app">
     <el-row class="header">
-      <span>公司信息管理系统</span>
+      <span>员工信息管理系统</span>
       <div class="header-right">
         <el-dropdown trigger="hover">
           <span class="el-dropdown-link userinfo-inner">欢迎您,{{name}}</span>
